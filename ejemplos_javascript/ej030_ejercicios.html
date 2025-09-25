@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">Obtener pokemon con Promesas (then)</button>
+    <div id="output"></div>
+    <script>
+        const TOTAL_POKEMONS = 1025
+        const getRandomNum = () => Math.floor(Math.random() * TOTAL_POKEMONS) + 1
+
+        document.getElementById("btn").addEventListener("click", () => {
+            // Obtener un numero aleatorio 0 al x
+            const randomNum = getRandomNum();
+            // conectarme con el api de pokemon para obtener un pokemon
+            fetch("https://pokeapi.co/api/v2/pokemon/" + randomNum)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("output").innerHTML =
+                        ` <h2> ${data.name}</h2>
+                <img src="${data.sprites.front_default}"/>`
+                })
+                .catch(error => document.getElementById("output").textContent = "Error al obtener el pokemon")
+            // mostrar el resultado por pontalla
+            // otras cosas
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "js_back_basico",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "lucas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
