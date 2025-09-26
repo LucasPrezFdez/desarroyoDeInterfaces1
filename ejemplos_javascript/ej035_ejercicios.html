@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">Obtener pokemon con Promesas (async await) (de un golpe usando promise.all)</button>
+    <div id="output"></div>
+    <script>
+        const URL_BASE = "https://pokeapi.co/api/v2/pokemon/"
+        const TOTAL_POKEMONS = 1025
+        const getRandomNum = () => Math.floor(Math.random() * TOTAL_POKEMONS) + 1
+
+        async function getPokemon(id) {
+            const response = await fetch(URL_BASE + id)
+            return await response.json()
+        }
+
+
+        document.getElementById("btn").addEventListener("click", async () => {
+            // Obtener un numero aleatorio 0 al x
+            // conectarme con el api de pokemon para obtener un pokemon
+            document.getElementById("output").innerHTML = ""
+
+            const ids = Array.from({ length: 5 }, getRandomNum)
+
+            const promesas = ids.map(id => getPokemon(id))
+            console.log(promesas);
+
+            const pokemons = await Promise.all(promesas)
+
+            pokemons.forEach(pokemon => {
+                try {
+                    document.getElementById("output").innerHTML +=
+                        ` <h2> ${pokemon.name}</h2>
+                    <img src="${pokemon.sprites.front_default}"/>`
+                } catch (error) {
+                    document.getElementById("output").textContent = "Error al obtener el pokemon" + error
+                }
+            })
+
+            /* for (let i = 0; i < 5; i++) {
+                const randomNum = getRandomNum();
+
+                try {
+                    const data = await getPokemon(randomNum)
+                    document.getElementById("output").innerHTML +=
+                        ` <h2> ${data.name}</h2>
+                    <img src="${data.sprites.front_default}"/>`
+                } catch (error) {
+                    document.getElementById("output").textContent = "Error al obtener el pokemon" + error
+                }
+            } */
+
+        })
+    </script>
+</body>
+
+</html>
