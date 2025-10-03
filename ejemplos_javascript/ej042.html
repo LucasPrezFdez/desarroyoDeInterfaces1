@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .safe {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #007bff;
+        }
+
+        #texto {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .safe button {
+            margin-top: 10px;
+            width: 200px;
+            height: 40px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .safe button:hover {
+            background-color: #0056b3;
+        }
+
+        div {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #28a745;
+        }
+
+        .output-item {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        #out1,
+        #out2,
+        #out3 {
+            background-color: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+            border: 1px solid #e9ecef;
+            min-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="safe">
+
+        <input id="texto" type="text" placeholder="Escribe algo...">
+        <button id="btn1">Guardar en local storege</button>
+        <button id="btn2">Guardar en local sesion storege</button>
+        <button id="btn3">Guardar en cookies</button>
+    </div>
+
+    <div>
+        <div> Informacion guardada en : </div>
+        <div class="output-item">
+            Local storage: <div id="out1"></div>
+        </div>
+        <div class="output-item">
+            Session Storage: <div id="out2"></div>
+        </div>
+        <div class="output-item">
+            Cookies: <div id="out3"></div>
+        </div>
+    </div>
+    <script>
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        const input = document.getElementById("texto")
+        const out1 = document.getElementById("out1")
+        const out2 = document.getElementById("out2")
+        const out3 = document.getElementById("out3")
+
+        out1.textContent = localStorage.getItem("demoText") ?? "vacio"
+        out2.textContent = sessionStorage.getItem("demoText") ?? "vacio"
+        out3.textContent = getCookie("demoText") ?? "vacio"
+
+
+        document.getElementById("btn1").addEventListener("click", () => {
+            const value = input.value
+            localStorage.setItem("demoText", value)
+            out1.textContent = value
+        })
+        document.getElementById("btn2").addEventListener("click", () => {
+            const value = input.value
+            sessionStorage.setItem("demoText", value)
+            out2.textContent = value
+        })
+        document.getElementById("btn3").addEventListener("click", () => {
+            const value = input.value
+            document.cookie = `demoText=${encodeURIComponent(value)};`
+            out3.textContent = value
+        })
+    </script>
+</body>
+
+</html>
