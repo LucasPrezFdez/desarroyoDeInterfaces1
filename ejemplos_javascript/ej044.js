@@ -16,6 +16,7 @@ console.log(odd);
 numbers = [3, 4, 7, 2];
 
 const sumas = numbers.reduce((acumulador, x) => acumulador + x, 0);
+console.log(sumas);
 
 // forEach
 
@@ -86,7 +87,48 @@ numbers = [4, 7, 3, 10, 7];
 const saco10 = numbers.includes(10);
 console.log(saco10);
 
+// indexOf izq
+numbers = [4, 7, 3, 10, 7];
+const indice = numbers.indexOf(7);
+console.log(indice); // First occurrence of 7
+
+// lastIndexOf (indexOf der)
+const ultimoIndice = numbers.lastIndexOf(7);
+console.log(ultimoIndice); // Last occurrence of 7
+
 // flatMap
 numbers = [1, 2, 3];
 const doubled = numbers.flatMap((x) => [x, x * 2]);
 console.log(doubled);
+
+// join
+numbers = [1, 2, 3, 4];
+const joined = numbers.join(" - ");
+console.log(joined);
+
+// key, values, entries
+numbers = [3, 6, 7];
+for (let [indice, valor] of numbers.entries) {
+  console.log(indice, "-", valor);
+}
+
+// findIndex
+numbers = [4, 8, 101, 7, 200];
+const indiceElemento = numbers.findIndex((x) => x > 100);
+console.log(indiceElemento);
+
+// at (acceso por índice, incluyendo índices negativos)
+numbers = [10, 20, 30, 40, 50];
+console.log(numbers.at(0)); // Primer elemento
+console.log(numbers.at(-1)); // Último elemento
+console.log(numbers.at(-2)); // Penúltimo elemento
+
+// fill
+numbers = [1, 2, 3, 4, 5];
+numbers.fill(0, 1, 4); // Rellena con 0 desde índice 1 hasta 4 (no incluido)
+console.log(numbers);
+
+// copyWithin
+numbers = [1, 2, 3, 4, 5];
+numbers.copyWithin(0, 3, 5); // Copia elementos desde índice 3-5 al índice 0
+console.log(numbers);
